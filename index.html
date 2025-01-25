@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      /* background: url('https://cdn.pixabay.com/photo/2024/04/12/19/50/earthday-8692504_1280.png') no-repeat center center fixed; */
+      background: url('./flowers-5555437.jpg');
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .slider {
+      width: 80%;
+      max-width: 800px;
+      height: auto;
+      border-radius: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding: 20px;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      text-align: center;
+      transition: opacity 1s;
+      padding-top: 40px;
+    }
+
+    .active-slide {
+      display: block;
+    }
+
+    .header {
+      font-family: 'Josefin Slab', serif;
+      font-size: 2.8rem;
+      color: #685050;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .couple-name {
+      font-size: 2rem;
+      color: #208e8b;
+      font-weight: bold;
+      margin-bottom: 15px;
+      letter-spacing: 1.5px;
+    }
+
+    .event-details {
+        width: 90%;
+      font-size: 1.2rem;
+      color: #685050;
+      margin: 10px 30px;
+      font-weight: 400;
+    }
+
+    .countdown {
+      font-size: 1.5rem;
+      color: #208e8b;
+      margin-top: 20px;
+      font-weight: 500;
+    }
+
+    .footer {
+      font-size: 1.1rem;
+      color: #555;
+      margin-top: 40px;
+    }
+
+    .button-container {
+      margin-top: 30px;
+    }
+
+    .next-button {
+      padding: 10px 20px;
+      background-color: #208e8b;
+      color: white;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .next-button:hover {
+      background-color: #227a77;
+    }
+    .t1{
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .slider {
+        width: 90%;
+        height: auto;
+      }
+
+      .header {
+        font-size: 2.5rem;
+      }
+
+      .couple-name {
+        font-size: 2rem;
+      }
+
+      .event-details, .countdown, .footer {
+        font-size: 1rem;
+      }
+
+      .next-button {
+        font-size: 1rem;
+        padding: 8px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .slider {
+        width: 95%;
+        padding: 10px;
+      }
+
+      .header {
+        font-size: 2rem;
+      }
+
+      .couple-name {
+        font-size: 1.8rem;
+      }
+
+      .event-details, .countdown, .footer {
+        font-size: 0.9rem;
+      }
+
+      .next-button {
+        font-size: 0.9rem;
+        padding: 7px 15px;
+      }
+
+      .slide {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slider">
+    <!-- Slide 1: Welcome -->
+    <div class="slide active-slide">
+      <div class="header">WEDDING INVITATION</div>
+      <div class="couple-name">GokulaKrishnan & Naveena</div>
+      <div class="event-details">Join us for a memorable celebration as we, together with our families, invite you to our wedding celebration.</div>
+      <!-- <div class="event-details">Together with their families invite you to their wedding celebration</div> -->
+      <div class="button-container">
+        <button class="next-button" id="next1">Next</button>
+      </div>
+    </div>
+
+    <!-- Slide 2: Event Information -->
+    <div class="slide">
+      <div class="header">Event Details</div>
+      <div class="event-details"><strong>Date:</strong> 10th February 2025</div>
+      <div class="event-details"><strong>Time:</strong> 6:00 AM</div>
+      <div class="event-details"><strong>Venue:</strong> GG Mahal, Rishivandiyam, Vengalam</div>
+      <div class="countdown" id="countdown">Countdown: Loading...</div>
+      <div class="button-container">
+        <button class="next-button" id="next2">Next</button>
+      </div>
+    </div>
+
+    <!-- Slide 3: Thank You -->
+    <div class="slide t1">
+      <div class="header">Thank You for Coming!</div>
+      <div class="footer">We are so glad you could join us on this special day.</div>
+      <div class="button-container">
+        <button class="next-button" id="next3">End</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Countdown function to update the timer
+    function updateCountdown() {
+      const eventDate = new Date('2025-02-10T17:30:00');
+      const now = new Date();
+      const diff = eventDate - now;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('countdown').textContent = `Countdown: ${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').textContent = "The big day has arrived!";
+        clearInterval(countdownInterval);
+      }
+    }
+
+    const countdownInterval = setInterval(updateCountdown, 1000);
+
+    // Slide navigation logic
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const next1Button = document.getElementById('next1');
+    const next2Button = document.getElementById('next2');
+    const next3Button = document.getElementById('next3');
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active-slide');
+        if (i === index) {
+          slide.classList.add('active-slide');
+        }
+      });
+    }
+
+    next1Button.addEventListener('click', () => {
+      currentSlide = 1;
+      showSlide(currentSlide);
+    });
+
+    next2Button.addEventListener('click', () => {
+      currentSlide = 2;
+      showSlide(currentSlide);
+    });
+
+    next3Button.addEventListener('click', () => {
+      alert('Thank you for viewing the invitation!');
+    });
+
+    // Initial slide (Welcome)
+    showSlide(currentSlide);
+  </script>
+
+</body>
+</html>
